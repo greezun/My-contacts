@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="avatar_contact_size">50dp</dimen>
+    <dimen name="margin_min">8dp</dimen>
+    <dimen name="margin_mid">16</dimen>
+    <dimen name="user_information_margin">74dp</dimen>
+</resources>
