@@ -13,7 +13,8 @@ interface ContactActionListener {
     fun onContactDelete(contact: Contact)
 }
 
-class ContactAdapter(private  val contactActionListener: ContactActionListener) : ListAdapter<Contact, ContactAdapter.ContactHolder>(ContactComparator()) {
+class ContactAdapter(private  val contactActionListener: ContactActionListener)
+    : ListAdapter<Contact, ContactAdapter.ContactHolder>(ContactComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -42,8 +43,6 @@ class ContactAdapter(private  val contactActionListener: ContactActionListener) 
             binding.basket.setOnClickListener {
                 contactActionListener.onContactDelete(contact)
             }
-
-
         }
     }
 

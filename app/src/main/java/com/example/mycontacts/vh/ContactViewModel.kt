@@ -1,12 +1,14 @@
 package com.example.mycontacts.vh
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+
 class ContactViewModel: ViewModel() {
 
-    private val _contactState = MutableLiveData<List<Contact>>(emptyList())
-    val contactState: LiveData<List<Contact>> = _contactState
+    private val _contactState = MutableStateFlow<List<Contact>>(emptyList())
+    val contactState: StateFlow<List<Contact>> = _contactState
     private val contactBase = ContactGenerator()
 
     init {
@@ -14,7 +16,7 @@ class ContactViewModel: ViewModel() {
     }
 
     fun deleteContact (contact: Contact){
-        _contactState.value = _contactState.value?.toMutableList()?.apply {
+        _contactState.value = _contactState.value.toMutableList().apply {
             remove(contact)
         }
     }

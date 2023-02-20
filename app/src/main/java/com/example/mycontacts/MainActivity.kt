@@ -7,14 +7,15 @@ import com.example.mycontacts.databinding.ActivityMainBinding
 import com.example.mycontacts.vh.ContactAdapter
 import com.example.mycontacts.vh.ContactViewModel
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.mycontacts.vh.Contact
 import com.example.mycontacts.vh.ContactActionListener
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val adapter: ContactAdapter by lazy{
-        ContactAdapter(contactActionListener = object: ContactActionListener{
-            override fun onContactDelete (contact: Contact){
+    private val adapter: ContactAdapter by lazy {
+        ContactAdapter(contactActionListener = object : ContactActionListener {
+            override fun onContactDelete(contact: Contact) {
                 contactViewModel.deleteContact(contact)
             }
         })
@@ -26,16 +27,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val manager = LinearLayoutManager(this)
-
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.adapter = adapter
         setObservers()
-        }
-
-    private fun setObservers() {
-        contactViewModel.contactState.observe(this){
-            adapter.submitList(it.toMutableList())
-        }
     }
 
+    private fun setObservers() {
+        lifecycleScope.launchWhenStarted {
+            contactViewModel.contactState.collect { list ->
+                adapter.submitList(list)
+            }
+        }
+    }
 }
