@@ -9,8 +9,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_min"
-        android:layout_marginVertical="@dimen/margin_min"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:layout_marginVertical="@dimen/margin_small"
         app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
             android:id="@+id/basket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_min"
+            android:layout_marginEnd="@dimen/margin_small"
             android:layout_gravity="end|center"
             android:src="@drawable/basket_background_normal">
 
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/user_information_margin"
-            android:layout_marginBottom="@dimen/margin_min"
+            android:layout_marginBottom="@dimen/margin_small"
             android:text="@string/user_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/user_information_margin"
-            android:layout_marginTop="@dimen/margin_min"
+            android:layout_marginTop="@dimen/margin_small"
 
             android:text="@string/career" />
 
@@ -60,8 +60,8 @@
                 android:layout_height="@dimen/avatar_contact_size"
                 app:cardCornerRadius="360dp"
 
-                android:layout_marginVertical="@dimen/margin_min"
-                android:layout_marginHorizontal="@dimen/margin_min">
+                android:layout_marginVertical="@dimen/margin_small"
+                android:layout_marginHorizontal="@dimen/margin_small">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageViewAvatar"

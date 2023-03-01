@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">My contacts</string>
     <string name="user_name">User name</string>
-    <string name="career">career</string>
+    <string name="career">Сareer</string>
+    <string name="order_confirmation">some text</string>
+    <string name="ok">ok</string>
+    <string name="addContact">Add contact</string>
+    <string name="add_contact">Add contact</string>
+    <string name="userName">User name</string>
+    <string name="e_mail">E-mail</string>
+    <string name="phone">Phone number</string>
+    <string name="birthDate">Date of birth</string>
+    <string name="address">Address</string>
+    <string name="contacts">Contacts</string>
 </resources>
