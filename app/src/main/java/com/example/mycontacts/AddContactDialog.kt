@@ -38,7 +38,7 @@ class AddContactDialog : DialogFragment() {
 override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     _binding = AddContactDialodBinding.inflate(LayoutInflater.from(context))
     return activity?.let {
-        val builder = AlertDialog.Builder(it)
+        val builder = AlertDialog.Builder(requireContext())
 
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(_binding.root).create()
