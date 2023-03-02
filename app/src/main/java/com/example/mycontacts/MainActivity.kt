@@ -8,15 +8,17 @@ import com.example.mycontacts.vh.ContactAdapter
 import com.example.mycontacts.vh.ContactViewModel
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.mycontacts.vh.Contact
 import com.example.mycontacts.vh.ContactActionListener
-
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var addContact: AppCompatTextView
+    private lateinit var addContact: AppCompatTextView
     private lateinit var binding: ActivityMainBinding
     private val adapter: ContactAdapter by lazy {
         ContactAdapter(contactActionListener = object : ContactActionListener {
@@ -50,9 +52,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        lifecycleScope.launchWhenStarted {
-            contactViewModel.contactState.collect { list ->
-                adapter.submitList(list)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                contactViewModel.contactState.collect { list ->
+                    adapter.submitList(list)
+                }
             }
         }
     }
