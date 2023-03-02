@@ -2,8 +2,6 @@ package com.example.mycontacts
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mycontacts.databinding.ActivityMainBinding
 import com.example.mycontacts.vh.ContactAdapter
@@ -33,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         val manager = LinearLayoutManager(this)
         addContact = binding.tvAddContact
         binding.recyclerView.layoutManager = manager
@@ -45,13 +45,8 @@ class MainActivity : AppCompatActivity() {
     private fun onClickListener()  {
         binding.tvAddContact.setOnClickListener{
             val contactAdder = AddContactDialog()
-            contactAdder.show(supportFragmentManager,"add_contact")
+            contactAdder.show(supportFragmentManager,AddContactDialog.TAG)
         }
-    }
-
-    fun showAddContactDialog(v: View){
-        val contactAdder:AddContactDialog = AddContactDialog()
-        contactAdder.show(supportFragmentManager,"add_contact")
     }
 
     private fun setObservers() {
