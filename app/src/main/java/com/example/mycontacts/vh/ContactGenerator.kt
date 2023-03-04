@@ -1,7 +1,7 @@
 package com.example.mycontacts.vh
 
 import com.github.javafaker.Faker
-import org.apache.commons.lang3.RandomStringUtils.random
+
 import org.apache.commons.lang3.RandomUtils.nextInt
 
 
@@ -12,7 +12,7 @@ class ContactGenerator {
     init {
         val faker = Faker.instance()
 
-        contacts = (1..10).map {
+        contacts = (1..5).map {
             Contact(
                 avatar = IMAGES[it % IMAGES.size],
                 userName = faker.name().fullName(),

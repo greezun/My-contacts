@@ -1,20 +1,12 @@
 package com.example.mycontacts
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-
 import android.os.Bundle
-
-
-import android.view.LayoutInflater
-import android.view.View
-
-import android.view.ViewGroup
-import android.view.Window
+import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.mycontacts.databinding.DialogAddContactBinding
-
 import com.example.mycontacts.vh.Contact
 import com.example.mycontacts.vh.ContactGenerator
 
@@ -27,7 +19,7 @@ class AddContactDialog : DialogFragment() {
 
     private lateinit var listener: ConfirmationListener
     private lateinit var _binding: DialogAddContactBinding
-    private lateinit var _contactGenerator: ContactGenerator
+    private val _contactGenerator = ContactGenerator()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,21 +31,33 @@ class AddContactDialog : DialogFragment() {
         }
     }
 
-    @SuppressLint("InflateParams", "UseGetLayoutInflater")
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.dialog_add_contact, container, false)
-    }
-
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogAddContactBinding.inflate(layoutInflater)
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        return dialog
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
+            addContactButtonListener()
+            tvBackListener()
+            builder.setView(_binding.root).create()
+        } ?: throw IllegalStateException("Activity cannot be null")
+    }
+
+    private fun tvBackListener() {
+        _binding.ivBack.setOnClickListener { dismiss() }
+    }
+
+    private fun addContactButtonListener() {
+        _binding.buttonAddContact.setOnClickListener {
+            listener.confirmButtonClicked(
+                with(_binding) {
+                    Log.i("myTag", "Створюємо контакт")
+                    _contactGenerator.getContact(
+                        userName = userNameField.text.toString(),
+                        address = userAddressField.text.toString()
+                    )
+                }
+            )
+            dismiss()
+        }
     }
 
     companion object {
@@ -63,18 +67,4 @@ class AddContactDialog : DialogFragment() {
 
 }
 
-//
-//
-////        _binding.buttonAddContact.setOnClickListener {
-////            Log.i("myTag", "відкрили діалог")
-////            listener.confirmButtonClicked(
-////                with(_binding) {
-////                    Log.i("myTag", "Створюємо контакт")
-////                    _contactGenerator.getContact(
-////                        userName = userNameField.toString(),
-////                        address = userAddressField.toString()
-////                    )
-////                }
-////            )
-////
-////        }
+
