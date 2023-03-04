@@ -16,7 +16,7 @@ import com.example.mycontacts.vh.ContactActionListener
 import kotlinx.coroutines.launch
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AddContactDialog.ConfirmationListener {
 
     private lateinit var addContact: AppCompatTextView
     private lateinit var binding: ActivityMainBinding
@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         val manager = LinearLayoutManager(this)
         addContact = binding.tvAddContact
         binding.recyclerView.layoutManager = manager
@@ -59,5 +57,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun confirmButtonClicked(contact: Contact) {
+        contactViewModel.addContact(contact)
     }
 }

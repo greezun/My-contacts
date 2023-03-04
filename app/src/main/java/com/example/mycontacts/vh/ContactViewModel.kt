@@ -1,6 +1,7 @@
 package com.example.mycontacts.vh
 
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +19,12 @@ class ContactViewModel: ViewModel() {
     fun deleteContact (contact: Contact){
         _contactState.value = _contactState.value.toMutableList().apply {
             remove(contact)
+        }
+    }
+    fun addContact (contact: Contact){
+        _contactState.value = _contactState.value.toMutableList().apply {
+            Log.i("myTag","Додаю контакт")
+            add(contact)
         }
     }
 
