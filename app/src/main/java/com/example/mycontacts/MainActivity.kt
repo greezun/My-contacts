@@ -13,17 +13,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.mycontacts.vh.Contact
 import com.example.mycontacts.vh.ContactActionListener
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AddContactDialog.ConfirmationListener {
 
     private lateinit var addContact: AppCompatTextView
     private lateinit var binding: ActivityMainBinding
     private val adapter: ContactAdapter by lazy {
         ContactAdapter(contactActionListener = object : ContactActionListener {
             override fun onContactDelete(contact: Contact) {
-                contactViewModel.deleteContact(contact)
+                val index = contactViewModel.deleteContact(contact)
+                Snackbar.make(binding.root, "Contact has been deleted", Snackbar.LENGTH_LONG)
+                    .setAction("UNDO") {
+                        contactViewModel.addContact(index,contact)
+                    }
+                    .show()
             }
         })
     }
@@ -33,8 +39,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         val manager = LinearLayoutManager(this)
         addContact = binding.tvAddContact
         binding.recyclerView.layoutManager = manager
@@ -60,4 +64,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun confirmButtonClicked(contact: Contact) {
+        contactViewModel.addContact(contact)
+        Snackbar.make(binding.root, "Contact added", Snackbar.LENGTH_SHORT)
+            .show()
+    }
+
+
 }

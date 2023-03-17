@@ -2,6 +2,9 @@ package com.example.mycontacts.vh
 
 import com.github.javafaker.Faker
 
+import org.apache.commons.lang3.RandomUtils.nextInt
+
+
 class ContactGenerator {
 
     private var contacts = mutableListOf<Contact>()
@@ -9,7 +12,7 @@ class ContactGenerator {
     init {
         val faker = Faker.instance()
 
-        contacts = (1..30).map {
+        contacts = (1..5).map {
             Contact(
                 avatar = IMAGES[it % IMAGES.size],
                 userName = faker.name().fullName(),
@@ -20,6 +23,13 @@ class ContactGenerator {
     }
 
     fun getContacts() = contacts
+    fun getContact(userName:String, address:String): Contact{
+        return Contact(
+            avatar = IMAGES[nextInt(0,12)],
+            userName = userName,
+            address = address
+        )
+    }
 
     companion object{
         private val IMAGES = mutableListOf(
