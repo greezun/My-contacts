@@ -1,4 +1,4 @@
-package com.example.mycontacts
+package com.mycontacts
 
 import android.app.Dialog
 import android.content.Context
@@ -7,27 +7,27 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.mycontacts.databinding.DialogAddContactBinding
-import com.example.mycontacts.vh.Contact
-import com.example.mycontacts.vh.ContactGenerator
+import com.mycontacts.model.Contact
+import com.mycontacts.model.ContactRepository
 
 
 class AddContactDialog : DialogFragment() {
 
     interface ConfirmationListener {
-        fun confirmButtonClicked(contact: Contact)
+        fun onConfirmButtonClicked(contact: Contact)
     }
 
     private lateinit var listener: ConfirmationListener
     private lateinit var _binding: DialogAddContactBinding
-    private val _contactGenerator = ContactGenerator()
+    private val _contactRepository = ContactRepository()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         try {
-            listener = activity as ConfirmationListener
+            listener = context as ConfirmationListener
         } catch (e: ClassCastException) {
-            throw ClassCastException(activity.toString() + " must implement ConfirmationListener")
+            throw ClassCastException("$context must implement ConfirmationListener")
         }
     }
 
@@ -47,10 +47,10 @@ class AddContactDialog : DialogFragment() {
 
     private fun addContactButtonListener() {
         _binding.buttonAddContact.setOnClickListener {
-            listener.confirmButtonClicked(
+            listener.onConfirmButtonClicked(
                 with(_binding) {
                     Log.i("myTag", "Створюємо контакт")
-                    _contactGenerator.getContact(
+                    _contactRepository.createContact(
                         userName = userNameField.text.toString(),
                         address = userAddressField.text.toString()
                     )
@@ -60,11 +60,24 @@ class AddContactDialog : DialogFragment() {
         }
     }
 
+
+//    override fun onClick(view: View) {
+//        when (view.id) {
+//            R.id.buttonAddContact -> listener.confirmButtonClicked(
+//                with(_binding) {
+//                    _contactRepository.getContact(
+//                        userName = userNameField.text.toString(),
+//                        address = userAddressField.text.toString()
+//                    )
+//                }
+//            )
+//        }
+//        dismiss()
+//
+//    }
     companion object {
         const val TAG = "add_contact"
     }
-
-
 }
 
 

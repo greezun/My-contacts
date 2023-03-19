@@ -1,37 +1,64 @@
-package com.example.mycontacts.vh
+package com.mycontacts.model
 
+import android.util.Log
 import com.github.javafaker.Faker
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlin.random.Random.Default.nextInt
 
-import org.apache.commons.lang3.RandomUtils.nextInt
+class ContactRepository {
 
+    private val faker = Faker.instance()
+    private var contactsFlow = MutableStateFlow(
+        List(5) { index -> randomContact(id = index + 1L) }
+    )
 
-class ContactGenerator {
-
-    private var contacts = mutableListOf<Contact>()
-
-    init {
-        val faker = Faker.instance()
-
-        contacts = (1..5).map {
-            Contact(
-                avatar = IMAGES[it % IMAGES.size],
-                userName = faker.name().fullName(),
-                address = faker.address().city()
-            )
-        }.toMutableList()
-
+    private fun randomContact(id: Long): Contact {
+        Log.i("myTag", "create contact")
+        return Contact(
+            id = id,
+            avatar = IMAGES[id.rem(IMAGES.size).toInt()],
+            userName = faker.name().fullName(),
+            address = faker.address().city()
+        )
     }
 
-    fun getContacts() = contacts
-    fun getContact(userName:String, address:String): Contact{
+
+    fun getContacts() = contactsFlow
+
+    fun delete(contact: Contact): Int {
+        var index: Int
+        contactsFlow.value = contactsFlow.value.toMutableList().apply {
+            index = indexOf(contact)
+            remove(contact)
+
+        }
+        return index
+    }
+
+    fun add(contact: Contact) {
+        contactsFlow.value = contactsFlow.value.toMutableList().apply {
+            add(contact)
+        }
+    }
+
+    fun add(index: Int, contact: Contact) {
+        contactsFlow.value = contactsFlow.value.toMutableList().apply {
+            add(index, contact)
+        }
+    }
+
+    fun createContact(userName: String, address: String): Contact {
         return Contact(
-            avatar = IMAGES[nextInt(0,12)],
+            id = contactsFlow.value.size + 1L,
+            avatar = IMAGES[nextInt(0, 12)],
             userName = userName,
             address = address
         )
     }
 
-    companion object{
+    fun getContactOfIndex(index: Int) = contactsFlow.value[index]
+
+    companion object {
         private val IMAGES = mutableListOf(
             "https://media.istockphoto.com/id/1450677469/photo/shop-glasses-and-eyes-of-black-child-with-vision-healthcare-frame-check-or-choice-in-retail.jpg?b=1&s=170667a&w=0&k=20&c=Qsu32r57KmaTRSKEOAfkcEZ6Za-rRVYxAOkIk-5d2SE=",
             "https://media.istockphoto.com/id/403040788/photo/portrait-of-asian-girl-looking-at-camera-outdoor-focus-on-face.jpg?b=1&s=170667a&w=0&k=20&c=LKgda_71os2Qvf_LztfmtL_iQbZw7p_whHJSjNk68w8=",
