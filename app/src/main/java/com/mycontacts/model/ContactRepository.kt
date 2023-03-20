@@ -1,16 +1,43 @@
 package com.mycontacts.model
 
+import android.annotation.SuppressLint
+import android.app.Application
+import android.content.ContentResolver
+import android.provider.ContactsContract
 import android.util.Log
 import com.github.javafaker.Faker
+import com.mycontacts.App
+import com.mycontacts.TestClass
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.random.Random.Default.nextInt
 
 class ContactRepository {
 
+    private val application:App =App()
     private val faker = Faker.instance()
-    private var contactsFlow = MutableStateFlow(
+    private var contactsFlow = if (!IS_GET_PHONE_CONTACTS) MutableStateFlow(
         List(5) { index -> randomContact(id = index + 1L) }
-    )
+    ) else getContactFromPhone()
+
+    @SuppressLint("Range", "Recycle")
+    private fun getContactFromPhone(): MutableStateFlow<List<Contact>> {
+        val contactFlow = MutableStateFlow<List<Contact>>(emptyList())
+        val contactList: MutableList<Contact> = ArrayList()
+        val contactResolver = application.contentResolver
+        val contacts = contactResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null,null, null)!!
+
+        while (contacts.moveToNext()) {
+            val name = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            val number = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            val obj = Contact(number.toLong(),"",  name, "")
+            contactList.add(obj)
+
+        }
+
+
+
+        return contactFlow
+    }
 
     private fun randomContact(id: Long): Contact {
         Log.i("myTag", "create contact")
@@ -59,6 +86,7 @@ class ContactRepository {
     fun getContactOfIndex(index: Int) = contactsFlow.value[index]
 
     companion object {
+        private const val IS_GET_PHONE_CONTACTS = true
         private val IMAGES = mutableListOf(
             "https://media.istockphoto.com/id/1450677469/photo/shop-glasses-and-eyes-of-black-child-with-vision-healthcare-frame-check-or-choice-in-retail.jpg?b=1&s=170667a&w=0&k=20&c=Qsu32r57KmaTRSKEOAfkcEZ6Za-rRVYxAOkIk-5d2SE=",
             "https://media.istockphoto.com/id/403040788/photo/portrait-of-asian-girl-looking-at-camera-outdoor-focus-on-face.jpg?b=1&s=170667a&w=0&k=20&c=LKgda_71os2Qvf_LztfmtL_iQbZw7p_whHJSjNk68w8=",
@@ -77,3 +105,5 @@ class ContactRepository {
 
     }
 }
+
+

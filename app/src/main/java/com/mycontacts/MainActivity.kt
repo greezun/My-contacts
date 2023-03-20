@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity(), AddContactDialog.ConfirmationListener 
         setObservers()
         onClickAddContactListener()
         onSwipeToDeleteListener()
+
+
     }
 
     private fun bindFields(binding: ActivityMainBinding) {

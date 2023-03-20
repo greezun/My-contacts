@@ -1,101 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="MissingDefaultResource">
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/vvTop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/primary_background_color"
+        app:layout_constraintHeight_percent="0.25"
+        tools:ignore="MissingConstraints" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAddContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:text="@string/add_contact"
+        android:textAppearance="@style/Text.Primary.LabelLarge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/user_photo"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginBottom="@dimen/margin_normal"
+        app:cardCornerRadius="@dimen/main_avatar_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewAddContact"
+        app:layout_constraintBottom_toBottomOf="@id/guideLine"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/avatar" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add_photo"
+        app:layout_constraintBottom_toBottomOf="@id/user_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/user_photo"
+        app:layout_constraintTop_toTopOf="@id/user_photo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.43"/>
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <View
-            android:id="@+id/view_topHalfBg_AddContact"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/primary_background_color"
-            app:layout_constraintBottom_toBottomOf="@id/barrier"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewAddContact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:text="@string/add_contact"
-            android:textAppearance="@style/Text.Primary.LabelLarge"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="user_photo"
-            tools:layout_editor_absoluteY="186dp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/user_photo"
-            android:layout_width="@dimen/avatar_size"
-            android:layout_height="@dimen/avatar_size"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_normal"
-            app:cardCornerRadius="@dimen/main_avatar_radius"
-            app:layout_constraintBottom_toBottomOf="@id/barrier"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewAddContact"
-            tools:ignore="MissingConstraints">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/picture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/avatar" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add_photo"
-            app:layout_constraintBottom_toBottomOf="@id/user_photo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/user_photo"
-            app:layout_constraintTop_toTopOf="@id/user_photo" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.75">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:isScrollContainer="false"
             app:layout_constraintBottom_toTopOf="@id/buttonAddContact"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/barrier">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/margin_normal"
                 android:orientation="vertical"
                 android:weightSum="6"
@@ -107,15 +101,16 @@
                     android:id="@+id/userNameContainer"
                     style="@style/TextInputEditLayout.addContact"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/userNameField"
                         style="@style/TextInputEditText.contactText"
-                        android:inputType="text"
+                        android:layout_weight="3"
                         android:background="@color/secondary_background_color"
                         android:hint="@string/userName"
-                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck,TextContrastCheck" />
+                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,8 +125,7 @@
                         style="@style/TextInputEditText.contactText"
                         android:background="@color/secondary_background_color"
                         android:hint="@string/career"
-                        android:inputType="text"
-                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck,TextContrastCheck" />
+                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -146,7 +140,7 @@
                         android:background="@color/secondary_background_color"
                         android:hint="@string/e_mail"
                         android:inputType="textEmailAddress"
-                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck,TextContrastCheck" />
+                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -161,8 +155,7 @@
                         android:background="@color/secondary_background_color"
                         android:hint="@string/phone"
                         android:inputType="phone"
-                        android:textColorHint="#757575"
-                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck,TextContrastCheck" />
+                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -176,7 +169,7 @@
                         style="@style/TextInputEditText.contactText"
                         android:background="@color/secondary_background_color"
                         android:hint="@string/address"
-                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck,TextContrastCheck" />
+                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -191,7 +184,7 @@
                         android:background="@color/secondary_background_color"
                         android:hint="@string/birthDate"
                         android:inputType="date"
-                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck,TextContrastCheck" />
+                        tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -211,7 +204,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
-            tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+            tools:ignore="TextContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
