@@ -40,6 +40,7 @@
             android:layout_marginTop="@dimen/margin_normal"
             android:text="@string/add_contact"
             android:textAppearance="@style/Text.Primary.LabelLarge"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
@@ -204,7 +205,6 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_small"
-            android:background="@drawable/button_basic"
             android:text="@string/save"
             android:textAppearance="@style/Text.Primary.ButtonText"
             app:layout_constraintBottom_toBottomOf="parent"

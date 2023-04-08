@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity(), AddContactDialog.ConfirmationListener 
         onClickAddContactListener()
         onSwipeToDeleteListener()
 
-
     }
 
     private fun bindFields(binding: ActivityMainBinding) {

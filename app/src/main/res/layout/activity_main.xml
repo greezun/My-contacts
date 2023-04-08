@@ -18,14 +18,14 @@
             android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/back"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
-            />
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -42,28 +42,30 @@
             android:id="@+id/ivSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/search"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
             android:clickable="true"
             android:focusable="true"
+            android:src="@drawable/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvAddContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_contact"
-            android:textAppearance="@style/Text.Secondary.ServiceText"
-            android:textColor="@color/on_primary_color"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:gravity="bottom"
             android:clickable="true"
             android:focusable="true"
+            android:text="@string/add_contact"
+            android:textAppearance="@style/Text.Secondary.ServiceText"
+            android:textColor="@color/clickable_text_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="@dimen/margin_large"
-            android:layout_marginStart="@dimen/margin_normal"/>
+            tools:ignore="TouchTargetSizeCheck" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

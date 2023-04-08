@@ -3,12 +3,12 @@ package com.mycontacts
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.mycontacts.databinding.DialogAddContactBinding
 import com.mycontacts.model.Contact
-import com.mycontacts.model.ContactRepository
+import com.mycontacts.model.ContactGenerator
+
 
 
 class AddContactDialog : DialogFragment() {
@@ -19,7 +19,7 @@ class AddContactDialog : DialogFragment() {
 
     private lateinit var listener: ConfirmationListener
     private lateinit var _binding: DialogAddContactBinding
-    private val _contactRepository = ContactRepository()
+    private val _contactGenerator = ContactGenerator()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,8 +49,7 @@ class AddContactDialog : DialogFragment() {
         _binding.buttonAddContact.setOnClickListener {
             listener.onConfirmButtonClicked(
                 with(_binding) {
-                    Log.i("myTag", "Створюємо контакт")
-                    _contactRepository.createContact(
+                    _contactGenerator.createContact(
                         userName = userNameField.text.toString(),
                         address = userAddressField.text.toString()
                     )
@@ -61,20 +60,6 @@ class AddContactDialog : DialogFragment() {
     }
 
 
-//    override fun onClick(view: View) {
-//        when (view.id) {
-//            R.id.buttonAddContact -> listener.confirmButtonClicked(
-//                with(_binding) {
-//                    _contactRepository.getContact(
-//                        userName = userNameField.text.toString(),
-//                        address = userAddressField.text.toString()
-//                    )
-//                }
-//            )
-//        }
-//        dismiss()
-//
-//    }
     companion object {
         const val TAG = "add_contact"
     }
