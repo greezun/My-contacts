@@ -14,7 +14,7 @@
 
     <!-- Text size -->
 
-
+    <!-- todo follow only one naming convention -->
     <dimen name="textLabelLargeSize">18sp</dimen>
     <dimen name="textServiceNormalSize">14sp</dimen>
     <dimen name="textServiceSmallSize">12sp</dimen>

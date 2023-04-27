@@ -1,4 +1,4 @@
-package com.mycontacts
+package com.mycontacts.ui.addContact
 
 import android.app.Dialog
 import android.content.Context
@@ -7,18 +7,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.mycontacts.databinding.DialogAddContactBinding
 import com.mycontacts.model.Contact
-import com.mycontacts.model.ContactGenerator
+import com.mycontacts.data.contact.ContactGenerator
 
 
 
 class AddContactDialog : DialogFragment() {
 
+    //todo I recommned moving this outta here
     interface ConfirmationListener {
         fun onConfirmButtonClicked(contact: Contact)
     }
 
     private lateinit var listener: ConfirmationListener
-    private lateinit var _binding: DialogAddContactBinding
+    private lateinit var _binding: DialogAddContactBinding //todo there is no need in the "_" before "binding"
     private val _contactGenerator = ContactGenerator()
 
     override fun onAttach(context: Context) {
@@ -50,8 +51,8 @@ class AddContactDialog : DialogFragment() {
             listener.onConfirmButtonClicked(
                 with(_binding) {
                     _contactGenerator.createContact(
-                        userName = userNameField.text.toString(),
-                        address = userAddressField.text.toString()
+                        userName = userNameField.text?.toString() ?: "", //todo pls note that in case of null you`ll receive "null"
+                        address = userAddressField.text?.toString() ?: ""
                     )
                 }
             )

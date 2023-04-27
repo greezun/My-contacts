@@ -9,6 +9,7 @@ class App : Application() {
         app = this
     }
 
+    //TODO What is this??
     companion object {
         private lateinit var app: App
         val instance: App get() = app

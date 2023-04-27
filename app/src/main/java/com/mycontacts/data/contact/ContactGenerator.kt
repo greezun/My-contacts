@@ -1,10 +1,11 @@
-package com.mycontacts.model
+package com.mycontacts.data.contact
 
 import android.annotation.SuppressLint
 import android.provider.ContactsContract
 import android.util.Log
 import com.github.javafaker.Faker
 import com.mycontacts.App
+import com.mycontacts.model.Contact
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.random.Random
 
@@ -14,16 +15,15 @@ class ContactGenerator {
     private val contactsFlow = MutableStateFlow<List<Contact>>(emptyList())
 
 
-    fun generateContacts(): MutableStateFlow<List<Contact>> {
-        return MutableStateFlow(
-            List(5) { index -> randomContact(id = index + 1L) }
-        )
+    fun generateContacts(): List<Contact> {
+        //todo avoid passing magic numbers
+       return List(5) { index -> randomContact(id = index + 1L) }
     }
 
     fun createContact(userName: String, address: String): Contact {
         return Contact(
             id = contactsFlow.value.size + 1L,
-            avatar = IMAGES[Random.nextInt(0, 12)],
+            avatar = IMAGES[Random.nextInt(0, 12)],             //todo avoid passing magic numbers
             userName = userName,
             address = address
         )
@@ -40,9 +40,8 @@ class ContactGenerator {
     }
 
     @SuppressLint("Range")
-    fun getContactFromPhone(): MutableStateFlow<List<Contact>> {
+    fun getContactFromPhone(): List<Contact> {
 
-        val contactFlow = MutableStateFlow<List<Contact>>(emptyList())
         val contactList: MutableList<Contact> = ArrayList()
 
         val contactResolver = App.instance.contentResolver
@@ -65,15 +64,15 @@ class ContactGenerator {
                 counter++
 
             }
-            contactFlow.value = contactList
         }
         contacts?.close()
 
-        return contactFlow
+        return contactList
     }
 
     companion object {
-        private val IMAGES = mutableListOf(
+        //todo not the best idea store it like this
+        private val IMAGES = listOf(
             "https://media.istockphoto.com/id/1450677469/photo/shop-glasses-and-eyes-of-black-child-with-vision-healthcare-frame-check-or-choice-in-retail.jpg?b=1&s=170667a&w=0&k=20&c=Qsu32r57KmaTRSKEOAfkcEZ6Za-rRVYxAOkIk-5d2SE=",
             "https://media.istockphoto.com/id/403040788/photo/portrait-of-asian-girl-looking-at-camera-outdoor-focus-on-face.jpg?b=1&s=170667a&w=0&k=20&c=LKgda_71os2Qvf_LztfmtL_iQbZw7p_whHJSjNk68w8=",
             "https://media.istockphoto.com/id/1384357158/photo/portrait-of-a-beautiful-mexican-woman.jpg?b=1&s=170667a&w=0&k=20&c=sNzHC0E61lT6LYJ9XPmnUTGhqLxDtusrxbm8YcP1Qic=",
